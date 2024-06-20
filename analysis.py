@@ -1,5 +1,7 @@
 import csv
-import matplotlib
+import math
+import matplotlib.pyplot as plt
+import nmpy
 
 """
 Objectives: 
@@ -15,49 +17,96 @@ How does age relate to whether someone is a smoker or not?
     * Add results to GitHub repository
 
 """
+# Returns the average value from numerical data in a column.
+def average(data_list):
+    total = 0
+    count = len(data_list)
+    for data in data_list:
+        total += round(float(data))
+    return round(total / count, 2)
 
+def median(data_list):
+    count = len(data_list)
+    data_list.sort()
+    if count % 2 == 0:
+        index = math.floor(count/2)
+        med = (float(data_list[index-1]) + float(data_list[index])) / 2
+    else:
+        index = math.ceil(count/2)
+        med = float(data_list[index-1])
+    return med
 
+# Returns the standard deviation from numerical data in a column.
+def std_deviation(data_list):
+    count = len(data_list)
+    avg_value = average(data_list)
+    total = 0
+    for data in data_list:
+        dif_sqr = (float(data) - avg_value)**2
+        total += dif_sqr
+    return (total / (count - 1)) ** 0.5
 
-def categorize(data_list,categories,conditions):
+# Returns a list of unique values under one column
+def unique_values(data_dict,header):
+    values = []
+    for row_data in data_dict[header]:
+        if not (row_data in values):
+            values.append(row_data)
+    values.sort()
+    return values
+
+# Picks rows to be returned in the 'group' list based on conditions.
+def sort_rows(data_dict,header,conditions):
     group = []
-    for row in data_list:
+    for row in data_dict[header]:
         for category in range(len(categories)):
             continue
     return group
 
 
-
-# opens insurance.csv to the reader object to be analyzed
+# Opens insurance.csv from the working directory.
 with open('insurance.csv',newline="") as insurance:
+    # Points the 'reader' object to the content of insurance.csv
     reader = csv.reader(insurance, delimiter=",")
 
     # Creates an empty dictionary for sorting the csv data by column.
     insurance_data = {}
 
-    # Iterates through each row of the csv file.
+    # Goes through each row of the csv file.
     line = 0
     for row in reader:
-        # For the first row of the csv file (which will be the headers): 
-        #   make the header a key in the insurance_data dictionary,
-        #   and initialize the key with an empty list (for storing data from each column).
+        # Makes each of the headers into a key in the insurance_data dictionary.
         if line == 0:
             for header in row:
                 insurance_data[header] = []
         
-        # For every row of data:
-        #   find the key associated with the column in the insurance_data dictionary,
-        #   and append the data to the empty list associated with the header key.
+        # Appends the data from columns (in each csv row) to the list associated with the header key in insurance_data.
         else:
              headers = list(insurance_data.keys())
              for index in range(len(row)):
                  insurance_data[headers[index]].append(row[index])
         line+=1
     
-    # The insurance_data dictionary should now be in a dataframe-ready format (if we were using the Pandas library):
+    # The insurance_data dictionary should now be in a dataframe-ready format (if the Pandas library was being used):
     #   The headers from the csv file are now the keys in the insurance_data dictionary,
-    #   and the data from each row in insurance.csv are stored in indexed lists for each header key
+    #   and the data from each row in insurance.csv are stored in indexed lists for each header key (row 1 is indexed at 0, and so on).
 
-    
 
-    print(insurance_data.keys())
+    # print("unique ages:")
+    # print(unique_values(insurance_data,"age"))
+
+    # print("unique sexes:")
+    # print(unique_values(insurance_data,"sex"))
+
+    #print("unique numbers of children:")
+    #print(unique_values(insurance_data,"children"))
+
+    #print("unique smokers:")
+    #print(unique_values(insurance_data,"smoker"))
+
+    print(average(insurance_data['charges']))
+    print(std_deviation(insurance_data['charges']))
+    print(median(insurance_data['charges']))
+
+
     
