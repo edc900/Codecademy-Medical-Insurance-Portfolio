@@ -1,7 +1,7 @@
 import csv
 import math
 import matplotlib.pyplot as plt
-import nmpy
+import numpy as np
 
 """
 Objectives: 
@@ -18,12 +18,24 @@ How does age relate to whether someone is a smoker or not?
 
 """
 # Returns the average value from numerical data in a column.
-def average(data_list):
+def mean(data_list):
     total = 0
     count = len(data_list)
-    for data in data_list:
-        total += round(float(data))
+    for datum in data_list:
+        total += round(float(datum))
     return round(total / count, 2)
+
+# Returns a tuple (min, max) from numerical data in a column.
+def min_max(data_list):
+    min = math.inf
+    max = 0
+    for datum in data_list:
+        datum = float(datum)
+        if datum < min:
+            min = datum
+        if datum > max:
+            max = datum
+    return (min,max)
 
 def median(data_list):
     count = len(data_list)
@@ -39,27 +51,27 @@ def median(data_list):
 # Returns the standard deviation from numerical data in a column.
 def std_deviation(data_list):
     count = len(data_list)
-    avg_value = average(data_list)
+    avg_value = mean(data_list)
     total = 0
-    for data in data_list:
-        dif_sqr = (float(data) - avg_value)**2
+    for datum in data_list:
+        dif_sqr = (float(datum) - avg_value)**2
         total += dif_sqr
     return (total / (count - 1)) ** 0.5
 
 # Returns a list of unique values under one column
 def unique_values(data_dict,header):
     values = []
-    for row_data in data_dict[header]:
-        if not (row_data in values):
-            values.append(row_data)
+    for row_datum in data_dict[header]:
+        if not (row_datum in values):
+            values.append(row_datum)
     values.sort()
     return values
 
 # Picks rows to be returned in the 'group' list based on conditions.
-def sort_rows(data_dict,header,conditions):
+def sort_rows(data_dict,header,condition):
     group = []
     for row in data_dict[header]:
-        for category in range(len(categories)):
+        for category in range(len(1)):
             continue
     return group
 
@@ -103,10 +115,8 @@ with open('insurance.csv',newline="") as insurance:
 
     #print("unique smokers:")
     #print(unique_values(insurance_data,"smoker"))
-
-    print(average(insurance_data['charges']))
+    print(mean(insurance_data['charges']))
     print(std_deviation(insurance_data['charges']))
     print(median(insurance_data['charges']))
-
-
+    print(min_max(insurance_data['charges']))
     
