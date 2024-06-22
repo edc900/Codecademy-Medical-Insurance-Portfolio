@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 """
 Objectives: 
-    * Add results to GitHub repository
+    * Find confidence interval for comparing the difference in means between insurance charges for smokers and for non-smokers.
 
 Question:
     Do smokers tend to have higher charges than non-smokers?
