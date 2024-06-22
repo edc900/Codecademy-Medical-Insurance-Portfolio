@@ -42,10 +42,23 @@ def std_deviation(data_list):
     return (total / (count - 1)) ** 0.5
 
 # Returns a list of unique values under one column
-def unique_values(data_dict,header):
+def unique_values(data_list):
     values = []
-    for row_datum in data_dict[header]:
+    for row_datum in data_list:
         if not (row_datum in values):
             values.append(row_datum)
     values.sort()
     return values
+
+def summary_numerical(data_list,name="the data list:"):
+    mn = mean(data_list)
+    stdev = std_deviation(data_list)
+    rng = min_max(data_list)
+    cnt = len(data_list)
+    print("From "+name)
+    print("There are "+ str(cnt) + " values.")
+    print("The mean is: " + str(mn))
+    print("The standard deviation is: " + str(stdev))
+    print("The range is: " + str(rng)+"\n")
+    return cnt,mn,stdev,rng
+    
