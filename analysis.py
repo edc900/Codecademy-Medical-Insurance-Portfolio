@@ -17,17 +17,29 @@ How does age relate to whether someone is a smoker or not?
     * Add results to GitHub repository
 
 """
-# Returns the average value from numerical data in a column.
 
+# Picks rows (indices) from lists (columns) stored in a dictionary (where keys are headers from a csv file)
+# only if the value at the index in the list passes the 'conditions' (1 or more lambda functions)
+# Example: lambda a: True if a > 150 else False (results in a list of every index where the value is > 150)
+def combine_data(data_dict,header,conditions):
+    indices = []
+    for index in range(len(data_dict[header])):
+        datum = data_dict[header][index]
+        passes = len(conditions)
+        for func in conditions: # Itterates through the lambda function list to test the value 'datum'
+            if func(datum):
+                passes -= 1
+        if passes == 0: # If the value at the index passes all of the conditions
+            # Add the index number to the list
+            indices.append(index)
+    return indices
 
-# Picks rows to be returned in the 'group' list based on conditions.
-def sort_rows(data_dict,header,condition):
-    group = []
-    for row in data_dict[header]:
-        for category in range(len(1)):
-            continue
-    return group
-
+# Returns a list of all values from a list based on 'indices'
+def values_from_column(data_dict,header,indices):
+    values = []
+    for index in indices:
+        values.append(data_dict[header][index])
+    return values
 
 # Opens insurance.csv from the working directory.
 with open('insurance.csv',newline="") as insurance:
@@ -68,8 +80,16 @@ with open('insurance.csv',newline="") as insurance:
 
     #print("unique smokers:")
     #print(unique_values(insurance_data,"smoker"))
-    print(mf.mean(insurance_data['charges']))
-    print(mf.std_deviation(insurance_data['charges']))
-    print(mf.median(insurance_data['charges']))
-    print(mf.min_max(insurance_data['charges']))
+    #print(mf.mean(insurance_data['charges']))
+    #print(mf.std_deviation(insurance_data['charges']))
+    #print(mf.median(insurance_data['charges']))
+    #print(mf.min_max(insurance_data['charges']))
+
+    is_smoker = lambda a: True if a == "yes" else False
+
+    # a list of indices from the smoker list where the value is 'yes'
+    smokers = combine_data(insurance_data,'smoker',[is_smoker])
+    smoker_charges = values_from_column(insurance_data,'charges',smokers)
+    print(smoker_charges)
+
     

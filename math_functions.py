@@ -1,5 +1,6 @@
 import math
 
+# Returns the average value from numerical data in a column.
 def mean(data_list):
     total = 0
     count = len(data_list)
