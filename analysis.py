@@ -5,13 +5,10 @@ import matplotlib.pyplot as plt
 
 """
 Objectives: 
-    * Use the created functions to answer questions about the insurance data
-    * Sumarize results and answers to questions
     * Add results to GitHub repository
 
 Questions:
-Do smokers tend to have higher charges than non-smokers?
-Is there a relationship between being a male or female and being a smoker or not?
+    Do smokers tend to have higher charges than non-smokers?
 
 """
 
@@ -175,5 +172,5 @@ with open(file,newline="") as insurance:
     ax3.vlines(mn_smk+(stdev_smk*2),0,100,color="blue") 
 
     ax3.annotate("$ "+str(round(mn_smk,2))+"\n± "+str(round(stdev_smk,2)),xy=(mn_smk+1000,80),color="red",size=8)
-    plt.show()
+    plt.savefig("smoker_charge_comparision.png")
     
