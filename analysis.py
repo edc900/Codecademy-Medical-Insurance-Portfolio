@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 
 """
 Objectives: 
+    * Polish code in preparation to receive feedback / ask for code review
     * Find confidence interval for comparing the difference in means between insurance charges for smokers and for non-smokers.
 
 Question:
