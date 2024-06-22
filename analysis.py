@@ -7,10 +7,11 @@ import matplotlib.pyplot as plt
 Objectives: 
     * Add results to GitHub repository
 
-Questions:
+Question:
     Do smokers tend to have higher charges than non-smokers?
 
 """
+
 
 # Functions for sorting and analyzing data from a dataset: 
 """
@@ -174,3 +175,20 @@ with open(file,newline="") as insurance:
     ax3.annotate("$ "+str(round(mn_smk,2))+"\n± "+str(round(stdev_smk,2)),xy=(mn_smk+1000,80),color="red",size=8)
     plt.savefig("smoker_charge_comparision.png")
     
+
+"""
+    [6-22-2024]
+    The results so far from analysis of insurance.csv indicate that smokers in the sample have a higher mean insurance cost
+    than non-smokers from the sample ($32,050 for smokers and $8,434 for non-smokers).
+    However, the proportion of non-smokers is much higher than the proportion of smokers in the sample (1064 smokers and 274 smokers),
+    and the standard deviation of insurance charges in both groups is large ($11,542 for smokers and $5,994 for non-smokers).
+
+    While the insurance charges for smokers seem to be higher overall than for non-smokers,
+    it is unclear to me whether or not the difference in mean charges is small enough to be explained by chance alone.
+
+    In the future, it might be beneficial to look for a confidence interval to represent the question of whether or not
+    the mean insurance charges between smokers and non-smokers is too great to be explained by chance alone.
+
+    It might also be beneficial to investigate other trends, such as whether smokers or non-smokers are more likely to have children
+    based on data from the sample.
+"""
