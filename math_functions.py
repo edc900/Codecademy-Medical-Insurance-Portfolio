@@ -1,5 +1,16 @@
 import math
 
+"""
+    These are the functions in this script for analyzing the properties of values in a data list:
+        mean(data_list)
+        min_max(data_list)
+        median(data_list)
+        std_deviation(data_list)
+        unique_values(data_list)
+        summary_numerical(data_list,name)
+"""
+
+
 # Returns the average value from numerical data in a column.
 def mean(data_list):
     total = 0
@@ -20,15 +31,17 @@ def min_max(data_list):
             max = datum
     return (min,max)
 
-def median(data_list):
-    count = len(data_list)
+# Returns the median of numerical data in a column.
+def median(data):
+    count = len(data)
+    data_list = data # Creates a "proxy" for the 'data' list so that 'data' does not become sorted.
     data_list.sort()
-    if count % 2 == 0:
-        index = math.floor(count/2)
+    if count % 2 == 0: # for an even number of values, median is the mean of the middle 2 values
+        index = int(count/2) # example: len([1,2,3,4,5,6]) / 2  -->  6 / 2  -->  3
         med = (float(data_list[index-1]) + float(data_list[index])) / 2
-    else:
-        index = math.ceil(count/2)
-        med = float(data_list[index-1])
+    else: # for an odd number of values, the median is the middle value
+        index = math.floor(count/2) # example: [1,2,3,4,5,6, 7 ,8,9,10,11,12,13]  -->  math.floor(7/2)  -->  4
+        med = float(data_list[index])
     return med
 
 # Returns the standard deviation from numerical data in a column.
@@ -51,10 +64,10 @@ def unique_values(data_list):
     return values
 
 def summary_numerical(data_list,name="the data list:"):
+    cnt = len(data_list)
     mn = mean(data_list)
     stdev = std_deviation(data_list)
     rng = min_max(data_list)
-    cnt = len(data_list)
     print("From "+name)
     print("There are "+ str(cnt) + " values.")
     print("The mean is: " + str(mn))
